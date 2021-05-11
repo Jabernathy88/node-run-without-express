@@ -1,0 +1,19 @@
+{
+  "name": "node-run-without-express",
+  "version": "1.0.0",
+  "description": "Small app, vanilla Node server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Jabernathy88/node-run-without-express.git"
+  },
+  "author": "Jeremy Abernathy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jabernathy88/node-run-without-express/issues"
+  },
+  "homepage": "https://github.com/Jabernathy88/node-run-without-express#readme"
+}
