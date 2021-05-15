@@ -1,4 +1,12 @@
 const products = require('../data/products')
-// function find
 
-// exports
+function findAll() {
+  return new Promise(() => {
+    resolve(products)
+  })
+
+}
+
+module.exports = {
+  findAll
+}
