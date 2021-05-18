@@ -1,8 +1,8 @@
-const Products = require('../models/productModel')
+const Product = require('../models/productModel')
 // more
 async function getProducts(req, res) {
   try {
-    const products = await Products.findAll()
+    const products = await Product.findAll()
 
     res.writeHead(200, { 'Content-Type': 'application/json' })
     res.end(JSON.stringify(products))

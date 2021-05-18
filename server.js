@@ -8,7 +8,7 @@ const server = http.createServer((req, res) => {
     console.log('response: 200. at GET: root/api/products')
   } else {
     res.writeHead(404, { 'Content-Type': 'application/json' })
-    res.end(JSON.stringify({ message: 'Requested Route Not Found' }))
+    res.end(JSON.stringify({ message: '404. Route Not Found. Try api home at: `/api/products`...' }))
   }
 })
 
