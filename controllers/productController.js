@@ -1,5 +1,8 @@
 const Product = require('../models/productModel')
 
+const { getPostData } = require('../utils')
+
+
 // GET All: /api/products
 async function getProducts(req, res) {
   try {
@@ -33,26 +36,20 @@ async function getProductById(req, res, id) {
 // POST: /api/products
 async function createProduct(req, res) {
   try {
-    // handle request body code
-    let body = ''
-    req.on('data', (chunk) => {
-      body += chunk.toString()
-    })
+    const body = await getPostData(req)
 
-    req.on('end', async () => {
-      const { title, description, price } = JSON.parse(body) // convert user input params from raw request, then destructure part of the object and save to variable
+    const { title, description, price } = JSON.parse(body) // convert user input params from raw request, then destructure part of the object and save to variable
 
-      const product = {
-        title,
-        description,
-        price
-      }
+    const product = {
+      title,
+      description,
+      price
+    }
 
-      const newProduct = await Product.create(product) // newProduct object returned here by *resolve() statement, comes back after Promise resolves
+    const newProduct = await Product.create(product) // newProduct object returned here by *resolve() statement, comes back after Promise resolves
 
-      res.writeHead(201, { 'Content-Type': 'application/json' })
-      return res.end(JSON.stringify(newProduct))
-    })
+    res.writeHead(201, { 'Content-Type': 'application/json' })
+    return res.end(JSON.stringify(newProduct))
 
   } catch (error) {
     console.log(error)
