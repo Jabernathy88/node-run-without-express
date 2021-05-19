@@ -17,6 +17,7 @@ const server = http.createServer((req, res) => {
   } else if (req.url === '/api/products' && req.method === 'POST') { // <-- HERE
 
   // UPDATE
+  
 
   // DELETE
 
