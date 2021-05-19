@@ -35,13 +35,13 @@ async function createProduct(req, res) {
   try {
     const product = {
       title: 'Test Product',
-      description: 'This is my product',
-      price: 100
+      description: 'This is a new product',
+      price: 200
     }
-    const newProduct = Product.create(product)
+    const newProduct = await Product.create(product) // newProduct object returned here by *resolve() statement, comes back after Promise resolves
 
-    res.writeHead(201, { '': 'application/json'})
-    return res.end(json.stringify(newProduct))
+    res.writeHead(201, { 'Content-Type': 'application/json' })
+    return res.end(JSON.stringify(newProduct))
 
   } catch (error) {
     console.log(error)
@@ -50,5 +50,6 @@ async function createProduct(req, res) {
 
 module.exports = {
   getProducts,
-  getProductById
+  getProductById,
+  createProduct
 }
