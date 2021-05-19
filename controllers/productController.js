@@ -1,5 +1,17 @@
 const Product = require('../models/productModel')
-// more
+
+// GET All: /api/products
+async function getProducts(req, res) {
+  try {
+    const products = await Product.findAll()
+
+    res.writeHead(200, { 'Content-Type': 'application/json' })
+    res.end(JSON.stringify(products))
+
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 // GET One: GET /api/product/:id
 async function getProductById(req, res, id) {
@@ -18,13 +30,18 @@ async function getProductById(req, res, id) {
   }
 }
 
-// GET All: /api/products
-async function getProducts(req, res) {
+// POST: /api/products
+async function createProduct(req, res) {
   try {
-    const products = await Product.findAll()
+    const product = {
+      title: 'Test Product',
+      description: 'This is my product',
+      price: 100
+    }
+    const newProduct = Product.create(product)
 
-    res.writeHead(200, { 'Content-Type': 'application/json' })
-    res.end(JSON.stringify(products))
+    res.writeHead(201, { '': 'application/json'})
+    return res.end(json.stringify(newProduct))
 
   } catch (error) {
     console.log(error)
