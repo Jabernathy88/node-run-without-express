@@ -2,13 +2,13 @@ const Product = require('../models/productModel')
 // more
 
 // GET One: GET /api/product/:id
-async function getProducts(req, res, id) {
+async function getProductById(req, res, id) {
   try {
     const product = await Product.findById(id)
 
     if (!product) {
       res.writeHead(400, { 'Content-Type': 'application/json' })
-      res.end(JSON.stringify({ message: '404. Product Record Not Found.' } ))
+      res.end(JSON.stringify({ message: '404. Record Not Found.' } ))
     } else {
       res.writeHead(200, { 'Content-Type': 'application/json' })
       res.end(JSON.stringify(product))
@@ -32,5 +32,6 @@ async function getProducts(req, res) {
 }
 
 module.exports = {
-  getProducts
+  getProducts,
+  getProductById
 }
