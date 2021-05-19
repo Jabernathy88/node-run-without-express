@@ -33,15 +33,26 @@ async function getProductById(req, res, id) {
 // POST: /api/products
 async function createProduct(req, res) {
   try {
-    const product = {
-      title: 'Test Product',
-      description: 'This is a new product',
-      price: 200
-    }
-    const newProduct = await Product.create(product) // newProduct object returned here by *resolve() statement, comes back after Promise resolves
+    // handle request body code
+    let body = ''
+    req.on('data', (chunk) => {
+      body += chunk.toString()
+    })
 
-    res.writeHead(201, { 'Content-Type': 'application/json' })
-    return res.end(JSON.stringify(newProduct))
+    req.on('end', async () => {
+      const { title, description, price } = JSON.parse(body) // convert user input params from raw request, then destructure part of the object and save to variable
+
+      const product = {
+        title,
+        description,
+        price
+      }
+
+      const newProduct = await Product.create(product) // newProduct object returned here by *resolve() statement, comes back after Promise resolves
+
+      res.writeHead(201, { 'Content-Type': 'application/json' })
+      return res.end(JSON.stringify(newProduct))
+    })
 
   } catch (error) {
     console.log(error)
