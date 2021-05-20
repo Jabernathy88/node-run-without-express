@@ -1,4 +1,4 @@
-const products = require('../data/products')
+let products = require('../data/products') // products mutated only in Model.destroy method
 const { v4: uuidv4 } = require('uuid')
 const { writeDataToFile } = require('../utils')
 
@@ -12,7 +12,7 @@ function findById(id) {
   return new Promise((resolve, reject) => {
     const product = products.find((p) => p.id === id)
     resolve(product)
-  }) 
+  })
 }
 
 function create(product) {
@@ -29,14 +29,23 @@ function update(id, product) {
     const index = products.findIndex((p) => p.id === id)
     products[index] = {id, ...product}
     writeDataToFile('./data/products.json', products)
-    // console.log("I am product in model:", products[index])
     resolve(products[index]) // returns the specific record from array of JSON objects
   })
 }
 
-module.exports = {
+function destroy(id) {
+  return new Promise((resolve, reject) => {
+    products = products.filter((p) => p.id !== id)
+
+    writeDataToFile('./data/products.json', products) // this strategy rewrites whole JSON file. not preferred with real DB.
+    resolve(products) // returns the specific record from array of JSON objects
+  })
+}
+
+module.exports = { // called as: Product.[function name]
   findAll,
   findById,
   create,
-  update // , delete
+  update,
+  destroy // OK IF NOT explicitly exported?
 }

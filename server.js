@@ -1,5 +1,5 @@
 const http = require('http')
-const { getProducts, getProductById, createProduct, updateProduct } = require('./controllers/productController')
+const { getProducts, getProductById, createProduct, updateProduct, deleteProduct } = require('./controllers/productController')
 
 const server = http.createServer((req, res) => {
 
@@ -7,23 +7,26 @@ const server = http.createServer((req, res) => {
   if (req.url === '/api/products' && req.method === 'GET') {
     getProducts(req, res)
 
-  // GET One by :id
+    // GET One by :id
   } else if (req.url.match(/\/api\/products\/([0-9]+)/) && req.method === 'GET') {
     const id = req.url.split('/')[3]
     getProductById(req, res, id)
 
-  // POST
+    // POST
   } else if (req.url === '/api/products' && req.method === 'POST') {
     createProduct(req, res)
 
-  // PUT api/products/:id
+    // PUT api/products/:id
   } else if (req.url.match(/\/api\/products\/([0-9]+)/) && req.method === 'PUT') {
     const id = req.url.split('/')[3]
     updateProduct(req, res, id)
 
-  // DELETE
+    // DELETE
+  } else if (req.url.match(/\/api\/products\/([0-9]+)/) && req.method === 'DELETE') {
+    const id = req.url.split('/')[3]
+    deleteProduct(req, res, id)
 
-  // root route: /api/products/
+    // root route: /api/products/
   } else {
     res.writeHead(404, { 'Content-Type': 'application/json' })
     res.end(JSON.stringify({ message: '404-Route Not Found. Try: `/api/products`' }))

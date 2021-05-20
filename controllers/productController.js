@@ -56,7 +56,7 @@ async function createProduct(req, res) {
   }
 }
 
-// PUT api/products
+// PUT api/products/:id
 async function updateProduct(req, res, id) {
   try {
     const product = await Product.findById(id)
@@ -88,9 +88,28 @@ async function updateProduct(req, res, id) {
   }
 }
 
+// DELETE One: /api/product/:id
+async function deleteProduct(req, res, id) {
+  try {
+    const product = await Product.findById(id)
+
+    if (!product) {
+      res.writeHead(404, { 'Content-Type': 'application/json' })
+      res.end(JSON.stringify({ message: '404. Record Not Found.' } ))
+    } else {
+      await Product.destroy(id)
+      res.writeHead(200, { 'Content-Type': 'application/json' })
+      res.end(JSON.stringify({ message: `Product id#: ${id} - Deleted.` }))
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 module.exports = {
   getProducts,
   getProductById,
   createProduct,
-  updateProduct
+  updateProduct,
+  deleteProduct
 }
