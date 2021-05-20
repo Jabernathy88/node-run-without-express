@@ -29,8 +29,9 @@ function update(id, product) {
     const index = products.findIndex((p) => p.id === id)
     products[index] = {id, ...product}
     writeDataToFile('./data/products.json', products)
+    // console.log("I am product in model:", products[index])
     resolve(products[index]) // returns the specific record from array of JSON objects
-  }) 
+  })
 }
 
 module.exports = {

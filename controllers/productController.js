@@ -81,7 +81,7 @@ async function updateProduct(req, res, id) {
       const updatedProduct = await Product.update(id, productParams) // updated JS object returns from Promise's resolve() statement
 
       res.writeHead(200, { 'Content-Type': 'application/json' })
-      return res.end(JSON.stringify(updateProduct))
+      return res.end(JSON.stringify(updatedProduct))
     }
   } catch (error) {
     console.log(error)
@@ -91,5 +91,6 @@ async function updateProduct(req, res, id) {
 module.exports = {
   getProducts,
   getProductById,
-  createProduct
+  createProduct,
+  updateProduct
 }
