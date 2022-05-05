@@ -47,5 +47,5 @@ module.exports = { // called as: Product.[function name]
   findById,
   create,
   update,
-  destroy // OK IF NOT explicitly exported?
+  destroy // OK if *not explicitly exported?
 }
